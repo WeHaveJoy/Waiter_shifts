@@ -1,0 +1,17 @@
+create table waiters (
+            waiterID INT PRIMARY KEY NOT NULL,
+            waiter varchar(30) not null
+);
+
+create table managers(
+
+           managerID INT PRIMARY KEY NOT NULL,
+           manager varchar(30) not null
+
+);
+
+create table waiter_manager (
+            ID INT PRIMARY KEY NOT NULL,
+            managerID int foreign key not null,
+            waiterID int foreign key not null
+);
