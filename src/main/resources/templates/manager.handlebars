@@ -5,29 +5,36 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+     <link rel="stylesheet" href="css/style.css">
     <title>Document</title>
 </head>
 <body>
     <h1>Java to Go</h1>
 
-<form action="/admin" method="GET" >
+<form action="/" method="get" >
 <div class="tbl">
 
 
     <table class="manager">
-            <tr>
-                <th>Sunday</th>
-                <th>Monday</th>
-                <th>Tuesday</th>
-                <th>Wednesday</th>
-                <th>Thursday</th>
-                <th>Friday</th>
-                <th>Saturday</th>
-            </tr>
-            <tr>
-                <td>Zola</td>
-                <td>Chuma</td>
-            </tr>
+             <thead>
+                         <tr>
+                             <th scope="col">Day</th>
+                             <th scope="col">Waiters</th>
+                         </tr>
+                     </thead>
+             <tbody>
+                        {{#each days}}
+                        <tr>
+                            <td>{{weekday}}</td>
+                            <td >
+                                {{#each waiters}}
+                                {{this}},
+
+                                {{/each}}
+                            </td>
+                        </tr>
+                        {{/each}}
+                    </tbody>
     </table>
 </div>
 </form>

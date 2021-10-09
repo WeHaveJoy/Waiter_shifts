@@ -10,45 +10,16 @@
 <body>
     <h1>Java to Go</h1>
 
-    <form action="/" method="post" >
-    <h2>Please select the 3 days the you would like to work on: </h2>
+    <form action="/waiter/{{WaiterName}}" method="post" >
+    <strong class="selectDay">Hi {{WaiterName}}, Choose the day(s) you would like to work on. </strong>
 
         <br>
         <br>
-            <label class="">
-                <input type="checkbox" name="day" value="Sunday" class="selectDay">
-                <span class="label-body">Sunday</span>
-            </label>
+        {{#each week}}
 
-             <label class="">
-                            <input type="checkbox" name="day" value="Monday" class="selectDay">
-                            <span class="label-body">Monday</span>
-                        </label>
-
-            <label class="">
-                           <input type="checkbox" name="day" value="Tuesday" class="selectDay">
-                           <span class="label-body">Tuesday</span>
-                       </label>
-
-                        <label class="">
-                                       <input type="checkbox" name="day" value="Wednesday" class="selectDay">
-                                       <span class="label-body">Wednesday</span>
-                                   </label>
-
-                                    <label class="">
-                                                   <input type="checkbox" name="day" value="Thursday" class="selectDay">
-                                                   <span class="label-body">Thursday</span>
-                                               </label>
-
-                                                <label class="">
-                                             <input type="checkbox" name="day" value="Friday" class="selectDay">
-                                            <span class="label-body">Friday</span>
-                                             </label>
-
-                                                            <label class="">
-                                                            <input type="checkbox" name="day" value="Saturday" class="selectDay">
-                                                            <span class="label-body">Saturday</span>
-                                                          </label>
+              <input type="checkbox" name="day" value={{id}} ><label> {{weekday}}
+              </label>
+            {{/each}}
 
             <div>
                 <br>
