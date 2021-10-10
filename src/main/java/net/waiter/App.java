@@ -16,13 +16,13 @@ public class App {
 
     static Map<String, Object> map = new HashMap<>();
 
-//    static int getHerokuAssignedPort() {
-//        ProcessBuilder processBuilder = new ProcessBuilder();
-//        if (processBuilder.environment().get("PORT") != null) {
-//            return Integer.parseInt(processBuilder.environment().get("PORT"));
-//        }
-//        return 4566; //return default port if heroku-port isn't set (i.e. on localhost)
-//    }
+    static int getHerokuAssignedPort() {
+        ProcessBuilder processBuilder = new ProcessBuilder();
+        if (processBuilder.environment().get("PORT") != null) {
+            return Integer.parseInt(processBuilder.environment().get("PORT"));
+        }
+        return 8080; //return default port if heroku-port isn't set (i.e. on localhost)
+    }
 
     public static void main(String[] args) throws SQLException {
 
@@ -57,7 +57,6 @@ public class App {
                 "\twaiter_id integer,\n" +
                 "\tunique(week_id, waiter_id)\n" +
                 ")");
-
 
 
 
@@ -96,8 +95,6 @@ public class App {
 
 
             handle.execute("insert into waiters (waiter) values(?)", WaiterName);
-
-           
 
             map.put("weekDays", weekDays);
             return new ModelAndView(map, "shift.handlebars");
