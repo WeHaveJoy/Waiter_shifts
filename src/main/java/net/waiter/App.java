@@ -63,7 +63,7 @@ public class App {
 
         port(8080); // Spark will run on port 8080
 
-        get("/", (req, res) -> {
+        get("/waiter", (req, res) -> {
             Map<String, Object> map = new HashMap<>();
 
             return new ModelAndView(map, "login.handlebars");
@@ -75,23 +75,18 @@ public class App {
         get("/waiter/:username", (req, res) -> {
             Map<String, Object> map = new HashMap<>();
             String WaiterName = req.params(":username");
-            Waiters waiter = new Waiters();
+
 
             List<Days> week = handle
                     .select("select weekday from week_day")
                     .mapToBean(Days.class)
                     .list();
 
-
-
             map.put("WaiterName", WaiterName);
             map.put("week",week);
             System.out.println(week);
             return new ModelAndView(map, "shift.handlebars");
-
-
         }, new HandlebarsTemplateEngine());
-
 
 
         post("/waiter/:username", (req, res) -> {
@@ -102,26 +97,23 @@ public class App {
 
             handle.execute("insert into waiters (waiter) values(?)", WaiterName);
 
-          handle.execute("select weekday from week_day", weekDays);
-
-//            System.out.println(weekDays);
+           
 
             map.put("weekDays", weekDays);
-
             return new ModelAndView(map, "shift.handlebars");
         }, new HandlebarsTemplateEngine());
+
 
         get("/manager", (req, res) -> {
             Map<String, Object> map = new HashMap<>();
 
-            List<Manager> schedule = handle
-                    .select("select weekday,waiter from shifts join waiters on shifts.waiter_id = waiters.id join week_day on shifts.week_id = week_day.id")
-                    .mapToBean(Manager.class)
+             List<String> schedule = handle
+                    .select("select weekday,waiter from shifts join week_day on shifts.week_id = week_day.id join waiters on shifts.waiter_id = waiters.id")
+                    .mapTo(String.class)
                     .list();
 
+            map.put("schedule", schedule);
             return new ModelAndView(map, "manager.handlebars");
-
-
         }, new HandlebarsTemplateEngine());
 
 
@@ -130,17 +122,20 @@ public class App {
             Map<String, Object> map = new HashMap<>();
 
             String days = req.queryParams("manager");
-            String waiterName = req.queryParams("username");
+            String WaiterName = req.queryParams("username");
 
 
-            String waiters = String.valueOf(handle.select("select waiters(*) from weekdays where waiter = ?", waiterName)
+            List<String> waiters = handle.select("select waiter from waiters where waiter = ?", WaiterName)
                     .mapTo(String.class)
-                    .findOnly());
+                    .list();
 
+            handle.execute("select weekday from week_day",days);
 
-            map.put("waiterName", waiters);
+            map.put("manager", days);
+            map.put("waiters", waiters);
+            map.put("WaiterName", WaiterName);
+            System.out.println(waiters);
             return new ModelAndView(map, "manager.handlebars");
-
         }, new HandlebarsTemplateEngine());
 
 

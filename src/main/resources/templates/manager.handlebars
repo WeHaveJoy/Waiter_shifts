@@ -23,19 +23,21 @@
                          </tr>
                      </thead>
              <tbody>
-                        {{#each days}}
+                        {{#each schedule}}
                         <tr>
-                            <td>{{weekday}}</td>
+                            <td>{{days}}</td>
                             <td >
                                 {{#each waiters}}
-                                {{this}},
-
+                                {{this}}
                                 {{/each}}
                             </td>
                         </tr>
                         {{/each}}
                     </tbody>
+
     </table>
+{{!--     {{days}} --}}
+{{!--     {{schedule}} --}}
 </div>
 </form>
 </body>
