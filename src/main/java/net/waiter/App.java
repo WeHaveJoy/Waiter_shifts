@@ -73,6 +73,7 @@ public class App {
 
         get("/waiter/:username", (req, res) -> {
             Map<String, Object> map = new HashMap<>();
+
             String WaiterName = req.params(":username");
 
 
@@ -81,9 +82,16 @@ public class App {
                     .mapToBean(Days.class)
                     .list();
 
+            String waiterID = String.valueOf(handle.createQuery("select id from waiters where waiter= :waiter")
+                    .bind("waiter", WaiterName)
+                    .mapTo(String.class)
+                    .list());
+
+
             map.put("WaiterName", WaiterName);
-            map.put("week",week);
-            System.out.println(week);
+            map.put("waiterID", waiterID);
+                map.put("week",week);
+            System.out.println(waiterID);
             return new ModelAndView(map, "shift.handlebars");
         }, new HandlebarsTemplateEngine());
 
@@ -94,8 +102,8 @@ public class App {
             String weekDays = req.queryParams("day");
 
 
-            handle.execute("insert into waiters (waiter) values(?)", WaiterName);
 
+            handle.execute("insert into shifts (waiter_id, week_id) values(?,?)", weekDays);
             map.put("weekDays", weekDays);
             return new ModelAndView(map, "shift.handlebars");
         }, new HandlebarsTemplateEngine());
@@ -105,11 +113,13 @@ public class App {
             Map<String, Object> map = new HashMap<>();
 
              List<String> schedule = handle
-                    .select("select weekday,waiter from shifts join week_day on shifts.week_id = week_day.id join waiters on shifts.waiter_id = waiters.id")
+                    .select("SELECT waiters.waiter, week_day.weekday from waiters INNER JOIN shifts on waiters.id = shifts.waiter_id INNER JOIN week_day on week_day.id = shifts.week_id;")
                     .mapTo(String.class)
                     .list();
 
             map.put("schedule", schedule);
+            System.out.println(schedule);
+
             return new ModelAndView(map, "manager.handlebars");
         }, new HandlebarsTemplateEngine());
 
@@ -134,7 +144,6 @@ public class App {
             System.out.println(waiters);
             return new ModelAndView(map, "manager.handlebars");
         }, new HandlebarsTemplateEngine());
-
-
+        
     }
 }
