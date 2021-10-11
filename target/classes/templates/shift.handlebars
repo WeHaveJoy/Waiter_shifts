@@ -21,14 +21,16 @@
 </head>
 </head>
 
-<body>
+<body class="bg-dark text-center">
 
+<div class="text-warning">
     <div class="container">
         <div class="row">
-            <h1>Java to Go</h1>
+
+            <h1 class="text-warning">Java to Go</h1>
 
             <form action="/waiter/{{id}}" method="POST">
-                <strong class="selectDay">Hi {{WaiterName}}, Choose the day(s) you would like to work on. </strong>
+                <strong class="selectDay text-warning">Hi {{WaiterName}}, Choose the day(s) you would like to work on. </strong>
                 <br>
                 <br>
                 {{#each week}}
@@ -42,6 +44,7 @@
             </form>
         </div>
     </div>
+     </div>
 </body>
 
 </html>

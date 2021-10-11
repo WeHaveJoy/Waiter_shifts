@@ -12,12 +12,17 @@
             <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/js/bootstrap.min.js" integrity="sha384-PsUw7Xwds7x08Ew3exXhqzbhuEYmA2xnwc8BuD6SEr+UmEHlX8/MCltYEodzWA4u" crossorigin="anonymous"></script>
 </head>
 
-<body class="bg dark">
-    <div  >
+ <body class="bg-dark text-center">
+    <div class="container">
+
+           <div class="row">
+               <h1 class="text-warning">Java to Go</h1>
         <form action="/waiter/add" method="post">
-            <input type="text" name="waiter" placeholder="Enter waiter name">
+            <input type="text center" name="waiter" placeholder="Enter waiter name">
             <button type="submit" class="btn btn-warning">submit</button>
         </form>
+    </div>
+
     </div>
 </body>
 
@@ -27,4 +32,4 @@
 
 {{!-- select weekday, waiter_name from shifts join weekdays on shifts.weekd_id = weekdays.weekday_id join waiters on shifts.waiter_id = waiters.waiters_id` --}}
 {{!-- //        select weeday, waiter from shifts inner join week_day on shifts.id = week_day.id inner join waiters on shifts .id = waiters.id --}}
-{{!-- //        SELECT waiters.waiter, week_day.weekday from waiters INNER JOIN shifts on waiters.id = shifts.waiter_id INNER JOIN week_day on week_day.id = shifts.week_id --}}
+{{!-- //        SELECT waiters.waitselect weekday, waiter_name from shifts join weekdays on shifts.weekd_id = weekday.weekday_id join waiters on shifts.waiter_id = waiters.waiters_id;er, week_day.weekday from waiters INNER JOIN shifts on waiters.id = shifts.waiter_id INNER JOIN week_day on week_day.id = shifts.week_id --}}

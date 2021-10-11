@@ -7,10 +7,7 @@ import spark.ModelAndView;
 import spark.template.handlebars.HandlebarsTemplateEngine;
 
 import java.sql.*;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static spark.Spark.*;
 
@@ -150,13 +147,33 @@ public class App {
         get("/manager", (req, res) -> {
             Map<String, Object> map = new HashMap<>();
 
-            List<String> schedule = handle
+            List<Shift> shifts = handle
                     .select("SELECT waiters.waiter, week_day.weekday from waiters INNER JOIN shifts on waiters.id = shifts.waiter_id INNER JOIN week_day on week_day.id = shifts.week_id;")
-                    .mapTo(String.class)
+                    .mapToBean(Shift.class)
                     .list();
 
-            map.put("schedule", schedule);
-            System.out.println(schedule);
+            Map<String, ShiftDay> shiftsByDayMap = new HashMap<>();
+
+            String[] weeksDays = {"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
+
+            for(String weekDay : weeksDays) {
+                if (!shiftsByDayMap.containsKey(weekDay)){
+                    shiftsByDayMap.put(weekDay, new ShiftDay(weekDay));
+                }
+            }
+
+            for(Shift shift : shifts) {
+                shiftsByDayMap.get(shift.getWeekDay()).addShift(shift);
+            }
+
+            map.put("schedule", shifts);
+            System.out.println(shifts);
+
+            Collection<ShiftDay> shiftsByDay = shiftsByDayMap.values();
+            map.put("shiftsByDay", shiftsByDay);
+
+//            System.out.println(shiftsByDay);
+//            System.out.println(shiftsByDayMap);
 
             return new ModelAndView(map, "manager.handlebars");
         }, new HandlebarsTemplateEngine());
@@ -168,6 +185,8 @@ public class App {
 
             String days = req.queryParams("manager");
             String WaiterName = req.queryParams("username");
+
+
 
 
             List<String> waiters = handle.select("select waiter from waiters where waiter = ?", WaiterName)

@@ -42,15 +42,21 @@
                     </tr>
                 </thead>
                 <tbody class"text-white">
-                    {{#each schedule}}
+                    {{#each shiftsByDay}}
+
                     <tr>
-                        <td>{{weekday}}</td>
                         <td>
-                            {{#each waiters}}
-                            {{waiters}},
+                        {{dayName}}
+                        </td>
+                        <td>
+                        <ul>
+                            {{#each shifts}}
+                            <li>{{waiter}}</li>
                             {{/each}}
+                        </ul>
                         </td>
                     </tr>
+
                     {{/each}}
                 </tbody>
 
