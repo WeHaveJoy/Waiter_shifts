@@ -3,7 +3,7 @@ package net.waiter;
 public class Waiters {
 
 
-    public void waiter(){
+    public void waiter() {
 //we want the user to enter their username
 
     }
@@ -13,7 +13,7 @@ public class Waiters {
 
     }
 
-    public void manager(){
+    public void manager() {
 
     }
 

@@ -1,11 +1,13 @@
 package net.waiter;
 
+import com.google.gson.Gson;
 import org.jdbi.v3.core.Handle;
 import org.jdbi.v3.core.Jdbi;
 import spark.ModelAndView;
 import spark.template.handlebars.HandlebarsTemplateEngine;
 
 import java.sql.*;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -15,6 +17,7 @@ import static spark.Spark.*;
 public class App {
 
     static Map<String, Object> map = new HashMap<>();
+    private static final Gson gson = new Gson();
 
     static int getHerokuAssignedPort() {
         ProcessBuilder processBuilder = new ProcessBuilder();
@@ -59,8 +62,32 @@ public class App {
                 ")");
 
 
-
         port(8080); // Spark will run on port 8080
+
+        get("/", (req, res) -> {
+            Map<String, Object> model = new HashMap<>();
+
+            return new ModelAndView(model, "index.handlebars");
+        }, new HandlebarsTemplateEngine());
+
+        post("/waiter/add", (req, res) -> {
+            String[] name = req.body().split("=");
+
+            List checkIfWaiterExist = handle.createQuery("select * from waiters where waiter = :waiter")
+                    .bind("waiter", name[1])
+                    .mapTo(String.class)
+                    .list();
+            if (checkIfWaiterExist.isEmpty()) {
+                handle.createUpdate("insert into waiters (waiter) values (:waiter)")
+                        .bind("waiter", name[1])
+                        .execute();
+            }
+
+            res.redirect("/waiter/" + name[1]);
+
+            return null;
+        });
+
 
         get("/waiter", (req, res) -> {
             Map<String, Object> map = new HashMap<>();
@@ -76,74 +103,85 @@ public class App {
 
             String WaiterName = req.params(":username");
 
-
             List<Days> week = handle
-                    .select("select weekday from week_day")
+                    .select("select * from week_day")
                     .mapToBean(Days.class)
                     .list();
 
-            String waiterID = String.valueOf(handle.createQuery("select id from waiters where waiter= :waiter")
+            Integer waiterId = handle.createQuery("select id from waiters where waiter = :waiter")
                     .bind("waiter", WaiterName)
-                    .mapTo(String.class)
-                    .list());
+                    .mapTo(Integer.class)
+                    .findOnly();
 
 
             map.put("WaiterName", WaiterName);
-            map.put("waiterID", waiterID);
-                map.put("week",week);
-            System.out.println(waiterID);
+            map.put("id", waiterId);
+            map.put("week", week);
             return new ModelAndView(map, "shift.handlebars");
         }, new HandlebarsTemplateEngine());
 
 
-        post("/waiter/:username", (req, res) -> {
+        post("/waiter/:id", (req, res) -> {
             Map<String, Object> map = new HashMap<>();
-            String WaiterName = req.params(":username");
-            String weekDays = req.queryParams("day");
+            String waiterId = req.params(":id");
+            String[] days = req.queryParamsValues("day");
 
-
-
-            handle.execute("insert into shifts (waiter_id, week_id) values(?,?)", weekDays);
-            map.put("weekDays", weekDays);
-            return new ModelAndView(map, "shift.handlebars");
-        }, new HandlebarsTemplateEngine());
-
-
-        get("/manager", (req, res) -> {
-            Map<String, Object> map = new HashMap<>();
-
-             List<String> schedule = handle
-                    .select("SELECT waiters.waiter, week_day.weekday from waiters INNER JOIN shifts on waiters.id = shifts.waiter_id INNER JOIN week_day on week_day.id = shifts.week_id;")
+            List checkForWaiter = handle.createQuery("select waiter from waiters where id = :waiter_id")
+                    .bind("waiter_id", waiterId)
                     .mapTo(String.class)
                     .list();
+            System.out.println(checkForWaiter);
 
-            map.put("schedule", schedule);
-            System.out.println(schedule);
+            handle.createUpdate("delete from shifts where waiter_id = :waiter_id")
+                    .bind("waiter_id", waiterId)
+                    .execute();
 
-            return new ModelAndView(map, "manager.handlebars");
-        }, new HandlebarsTemplateEngine());
+            for (int x = 0; x < days.length; x++) {
+                handle.createUpdate("insert into shifts (waiter_id, week_id) values (:waiter_id, :week_id)")
+                        .bind("waiter_id", waiterId)
+                        .bind("week_id", days[x])
+                        .execute();
+            }
+                res.redirect("/waiter/"+checkForWaiter.get(0));
+                return null;
+            });
 
 
-        post("/manager", (req, res) -> {
+            get("/manager", (req, res) -> {
+                Map<String, Object> map = new HashMap<>();
 
-            Map<String, Object> map = new HashMap<>();
+                List<String> schedule = handle
+                        .select("SELECT waiters.waiter, week_day.weekday from waiters INNER JOIN shifts on waiters.id = shifts.waiter_id INNER JOIN week_day on week_day.id = shifts.week_id;")
+                        .mapTo(String.class)
+                        .list();
 
-            String days = req.queryParams("manager");
-            String WaiterName = req.queryParams("username");
+                map.put("schedule", schedule);
+                System.out.println(schedule);
+
+                return new ModelAndView(map, "manager.handlebars");
+            }, new HandlebarsTemplateEngine());
 
 
-            List<String> waiters = handle.select("select waiter from waiters where waiter = ?", WaiterName)
-                    .mapTo(String.class)
-                    .list();
+            post("/manager", (req, res) -> {
 
-            handle.execute("select weekday from week_day",days);
+                Map<String, Object> map = new HashMap<>();
 
-            map.put("manager", days);
-            map.put("waiters", waiters);
-            map.put("WaiterName", WaiterName);
-            System.out.println(waiters);
-            return new ModelAndView(map, "manager.handlebars");
-        }, new HandlebarsTemplateEngine());
-        
+                String days = req.queryParams("table table-dark");
+                String WaiterName = req.queryParams("username");
+
+
+                List<String> waiters = handle.select("select waiter from waiters where waiter = ?", WaiterName)
+                        .mapTo(String.class)
+                        .list();
+
+                handle.execute("select weekday from week_day", days);
+
+                map.put("table table-dark", days);
+                map.put("waiters", waiters);
+                map.put("WaiterName", WaiterName);
+                System.out.println(waiters);
+                return new ModelAndView(map, "manager.handlebars");
+            }, new HandlebarsTemplateEngine());
+
+        }
     }
-}
