@@ -1,0 +1,5 @@
+net/waiter/App.class
+net/waiter/Manager.class
+net/waiter/User.class
+net/waiter/Days.class
+net/waiter/Waiters.class

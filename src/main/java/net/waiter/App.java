@@ -62,7 +62,7 @@ public class App {
                 ")");
 
 
-        port(8080); // Spark will run on port 8080
+//        port(8080); // Spark will run on port 8080
 
         get("/", (req, res) -> {
             Map<String, Object> model = new HashMap<>();
@@ -146,12 +146,14 @@ public class App {
                 return null;
             });
 
-
+//        select weekday, waiter_name from shifts join weekdays on shifts.weekd_id = weekdays.weekday_id join waiters on shifts.waiter_id = waiters.waiters_id`
+//        select weeday, waiter from shifts inner join week_day on shifts.id = week_day.id inner join waiters on shifts .id = waiters.id
+//        SELECT waiters.waiter, week_day.weekday from waiters INNER JOIN shifts on waiters.id = shifts.waiter_id INNER JOIN week_day on week_day.id = shifts.week_id
             get("/manager", (req, res) -> {
                 Map<String, Object> map = new HashMap<>();
 
                 List<String> schedule = handle
-                        .select("SELECT waiters.waiter, week_day.weekday from waiters INNER JOIN shifts on waiters.id = shifts.waiter_id INNER JOIN week_day on week_day.id = shifts.week_id;")
+                        .select(" select week_day.weekday, waiters.waiter from shifts inner join week_day on shifts.id = week_day.id inner join waiters on shifts .id = waiters.id;")
                         .mapTo(String.class)
                         .list();
 
