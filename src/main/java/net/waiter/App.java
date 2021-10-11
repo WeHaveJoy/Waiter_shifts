@@ -62,7 +62,7 @@ public class App {
                 ")");
 
 
-//        port(8080); // Spark will run on port 8080
+        port(8080); // Spark will run on port 8080
 
         get("/", (req, res) -> {
             Map<String, Object> model = new HashMap<>();
@@ -142,48 +142,46 @@ public class App {
                         .bind("week_id", days[x])
                         .execute();
             }
-                res.redirect("/waiter/"+checkForWaiter.get(0));
-                return null;
-            });
-
-//        select weekday, waiter_name from shifts join weekdays on shifts.weekd_id = weekdays.weekday_id join waiters on shifts.waiter_id = waiters.waiters_id`
-//        select weeday, waiter from shifts inner join week_day on shifts.id = week_day.id inner join waiters on shifts .id = waiters.id
-//        SELECT waiters.waiter, week_day.weekday from waiters INNER JOIN shifts on waiters.id = shifts.waiter_id INNER JOIN week_day on week_day.id = shifts.week_id
-            get("/manager", (req, res) -> {
-                Map<String, Object> map = new HashMap<>();
-
-                List<String> schedule = handle
-                        .select(" select week_day.weekday, waiters.waiter from shifts inner join week_day on shifts.id = week_day.id inner join waiters on shifts .id = waiters.id;")
-                        .mapTo(String.class)
-                        .list();
-
-                map.put("schedule", schedule);
-                System.out.println(schedule);
-
-                return new ModelAndView(map, "manager.handlebars");
-            }, new HandlebarsTemplateEngine());
+            res.redirect("/waiter/"+checkForWaiter.get(0));
+            return null;
+        });
 
 
-            post("/manager", (req, res) -> {
+        get("/manager", (req, res) -> {
+            Map<String, Object> map = new HashMap<>();
 
-                Map<String, Object> map = new HashMap<>();
+            List<String> schedule = handle
+                    .select("SELECT waiters.waiter, week_day.weekday from waiters INNER JOIN shifts on waiters.id = shifts.waiter_id INNER JOIN week_day on week_day.id = shifts.week_id;")
+                    .mapTo(String.class)
+                    .list();
 
-                String days = req.queryParams("table table-dark");
-                String WaiterName = req.queryParams("username");
+            map.put("schedule", schedule);
+            System.out.println(schedule);
+
+            return new ModelAndView(map, "manager.handlebars");
+        }, new HandlebarsTemplateEngine());
 
 
-                List<String> waiters = handle.select("select waiter from waiters where waiter = ?", WaiterName)
-                        .mapTo(String.class)
-                        .list();
+        post("/manager", (req, res) -> {
 
-                handle.execute("select weekday from week_day", days);
+            Map<String, Object> map = new HashMap<>();
 
-                map.put("table table-dark", days);
-                map.put("waiters", waiters);
-                map.put("WaiterName", WaiterName);
-                System.out.println(waiters);
-                return new ModelAndView(map, "manager.handlebars");
-            }, new HandlebarsTemplateEngine());
+            String days = req.queryParams("manager");
+            String WaiterName = req.queryParams("username");
 
-        }
+
+            List<String> waiters = handle.select("select waiter from waiters where waiter = ?", WaiterName)
+                    .mapTo(String.class)
+                    .list();
+
+            handle.execute("select weekday from week_day", days);
+
+            map.put("manager", days);
+            map.put("waiters", waiters);
+            map.put("WaiterName", WaiterName);
+            System.out.println(waiters);
+            return new ModelAndView(map, "manager.handlebars");
+        }, new HandlebarsTemplateEngine());
+
     }
+}

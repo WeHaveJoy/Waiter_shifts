@@ -8,16 +8,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="47347d55-907e-49c7-9ae4-b7c61e17ca3b" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/runConfigurations/App.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Coffee_shop.db" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Coffee_shop.db" beforeDir="false" afterPath="$PROJECT_DIR$/Coffee_shop.db" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/net/waiter/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/waiter/App.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/manager.handlebars" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/manager.handlebars" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/index.handlebars" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/index.handlebars" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/net/waiter/App.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/net/waiter/App.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/manager.handlebars" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/manager.handlebars" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-archiver/pom.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-archiver/pom.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/waiter_shift-1.0-SNAPSHOT.jar" beforeDir="false" afterPath="$PROJECT_DIR$/target/waiter_shift-1.0-SNAPSHOT.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/index.handlebars" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/index.handlebars" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -44,7 +40,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$USER_HOME$/Desktop/Waiter_shifts" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.0" />
