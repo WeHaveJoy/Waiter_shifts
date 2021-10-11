@@ -41,13 +41,13 @@
                         <th scope="col">Waiters</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody class"text-white">
                     {{#each schedule}}
                     <tr>
-                        <td>{{days}}</td>
+                        <td>{{weekday}}</td>
                         <td>
                             {{#each waiters}}
-                            {{this}}
+                            {{this}},
                             {{/each}}
                         </td>
                     </tr>
@@ -55,8 +55,8 @@
                 </tbody>
 
             </table>
-            {{!-- {{days}} --}}
-            {{!-- {{schedule}} --}}
+
         </div>
     </form>
 </body>
+

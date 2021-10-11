@@ -34,17 +34,17 @@
         <div class="tbl">
 
 
-            <table class="table table-dark">
+            <table class="table table-striped">
                 <thead>
                     <tr>
                         <th scope=>Day</th>
                         <th scope="col">Waiters</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody class"text-white">
                     {{#each schedule}}
                     <tr>
-                        <td>{{days}}</td>
+                        <td>{{weekday}}</td>
                         <td>
                             {{#each waiters}}
                             {{this}}

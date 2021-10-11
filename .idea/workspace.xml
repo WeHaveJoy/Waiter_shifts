@@ -7,7 +7,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="47347d55-907e-49c7-9ae4-b7c61e17ca3b" name="Changes" comment="" />
+    <list default="true" id="47347d55-907e-49c7-9ae4-b7c61e17ca3b" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Coffee_shop.db" beforeDir="false" afterPath="$PROJECT_DIR$/Coffee_shop.db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/manager.handlebars" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/manager.handlebars" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/manager.handlebars" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/manager.handlebars" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
