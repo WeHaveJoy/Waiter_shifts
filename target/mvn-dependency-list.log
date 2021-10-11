@@ -1,0 +1,36 @@
+
+The following files have been resolved:
+   org.eclipse.jetty:jetty-servlet:jar:9.4.18.v20190429:compile
+   com.github.jknack:handlebars-guava-cache:jar:4.0.6:compile
+   org.slf4j:slf4j-simple:jar:1.7.21:compile
+   org.eclipse.jetty:jetty-client:jar:9.4.18.v20190429:compile
+   org.eclipse.jetty:jetty-server:jar:9.4.18.v20190429:compile
+   org.eclipse.jetty:jetty-io:jar:9.4.18.v20190429:compile
+   org.eclipse.jetty.websocket:websocket-common:jar:9.4.18.v20190429:compile
+   org.eclipse.jetty:jetty-xml:jar:9.4.18.v20190429:compile
+   com.sparkjava:spark-template-handlebars:jar:2.7.1:compile
+   org.eclipse.jetty.websocket:websocket-servlet:jar:9.4.18.v20190429:compile
+   antlr:antlr:jar:2.7.7:compile
+   org.antlr:stringtemplate:jar:3.2.1:compile
+   com.h2database:h2:jar:1.4.199:compile
+   com.google.guava:guava:jar:14.0.1:compile
+   org.eclipse.jetty.websocket:websocket-client:jar:9.4.18.v20190429:compile
+   org.slf4j:slf4j-api:jar:1.7.21:compile
+   org.eclipse.jetty:jetty-webapp:jar:9.4.18.v20190429:compile
+   com.github.jknack:handlebars:jar:4.0.6:compile
+   javax.servlet:javax.servlet-api:jar:3.1.0:compile
+   com.google.code.gson:gson:jar:2.8.5:compile
+   com.sparkjava:spark-core:jar:2.9.1:compile
+   org.eclipse.jetty:jetty-security:jar:9.4.18.v20190429:compile
+   org.eclipse.jetty:jetty-util:jar:9.4.18.v20190429:compile
+   org.jdbi:jdbi3-core:jar:3.1.0:compile
+   org.eclipse.jetty.websocket:websocket-server:jar:9.4.18.v20190429:compile
+   org.mozilla:rhino:jar:1.7R4:compile
+   net.jodah:expiringmap:jar:0.5.6:compile
+   org.antlr:antlr4-runtime:jar:4.5.1-1:compile
+   org.xerial:sqlite-jdbc:jar:3.36.0.2:compile
+   org.eclipse.jetty.websocket:websocket-api:jar:9.4.18.v20190429:compile
+   org.eclipse.jetty:jetty-http:jar:9.4.18.v20190429:compile
+   org.apache.commons:commons-lang3:jar:3.1:compile
+   org.antlr:antlr-runtime:jar:3.4:compile
+
